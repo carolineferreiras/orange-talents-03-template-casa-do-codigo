@@ -1,6 +1,9 @@
-package br.com.zupacademy.caroline.casadocodigo.Models;
+package br.com.zupacademy.caroline.casadocodigo.Controller;
 
 
+import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
+import br.com.zupacademy.caroline.casadocodigo.Form.AutorForm;
+import br.com.zupacademy.caroline.casadocodigo.Repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,7 @@ public class AutorController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> cadastrar(@RequestBody AutorForm autorForm) {
-        Autor  autor = autorForm.converter();
+        Autor autor = autorForm.converter();
         autorRepository.save(autor);
         return ResponseEntity.ok(HttpStatus.OK);
     }

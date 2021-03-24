@@ -1,5 +1,6 @@
-package br.com.zupacademy.caroline.casadocodigo.Models;
+package br.com.zupacademy.caroline.casadocodigo.Form;
 
+import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
 import com.sun.istack.NotNull;
 
 import javax.validation.constraints.Email;
