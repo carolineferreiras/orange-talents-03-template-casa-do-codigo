@@ -1,28 +1,31 @@
 package br.com.zupacademy.caroline.casadocodigo.Controller;
 
-
+import br.com.zupacademy.caroline.casadocodigo.DTO.AutorRequestDTO;
+import br.com.zupacademy.caroline.casadocodigo.DTO.AutorResponseDTO;
 import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
-import br.com.zupacademy.caroline.casadocodigo.Form.AutorForm;
 import br.com.zupacademy.caroline.casadocodigo.Repository.AutorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/autor")
+@RequestMapping(value = "/autor")
 public class AutorController {
 
-    @Autowired
     private AutorRepository autorRepository;
 
-    @PostMapping
-    public ResponseEntity<HttpStatus> cadastrar(@Valid @RequestBody AutorForm autorForm) {
-        Autor autor = autorForm.converter();
-        autorRepository.save(autor);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public AutorController(AutorRepository autorRepository) {
+        this.autorRepository = autorRepository;
     }
 
+    @PostMapping
+    public ResponseEntity<AutorResponseDTO> save(@RequestBody @Valid AutorRequestDTO requestDTO ){
+        Autor autor = requestDTO.converter();
+        return ResponseEntity.ok().body(new AutorResponseDTO(autorRepository.save(autor)));
+    }
 }
+
