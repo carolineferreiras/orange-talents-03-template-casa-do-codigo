@@ -1,5 +1,7 @@
 package br.com.zupacademy.caroline.casadocodigo.Valid;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -27,6 +29,9 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValueVali
         Query query = entityManager.createQuery(jpql);
         query.setParameter("obj",obj);
         List<?> list= query.getResultList();
+
+        Assert.state(list.size()<=1,"Foi encontrado mais de um"+domainClass+"com o atributo" +domainClass+"="+obj);
+
         return list.isEmpty();
     }
 }

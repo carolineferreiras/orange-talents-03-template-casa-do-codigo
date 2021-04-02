@@ -13,6 +13,8 @@ public class CategoriaResponseDTO {
         this.nome = entity.getNome();
     }
 
+
+
     public Long getId() {
         return id;
     }

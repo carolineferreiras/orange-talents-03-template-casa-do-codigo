@@ -24,8 +24,7 @@ public class Categoria implements Serializable {
     public Categoria() {
     }
 
-    public Categoria(Long id, @NotEmpty String nome) {
-        this.id = id;
+    public Categoria(@NotEmpty String nome) {
         this.nome = nome;
     }
 
