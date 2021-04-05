@@ -1,6 +1,7 @@
 package br.com.zupacademy.caroline.casadocodigo.DTO;
 
 import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
+import br.com.zupacademy.caroline.casadocodigo.Models.Categoria;
 import br.com.zupacademy.caroline.casadocodigo.Valid.UniqueValueValid;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -25,16 +26,23 @@ public class AutorRequestDTO {
     public AutorRequestDTO() {
     }
 
-
-    public AutorRequestDTO(String nome,String email,String descricao) {
+    public AutorRequestDTO(@NotBlank String nome, @Email @NotBlank String email, @NotBlank @Size(max = 400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
     }
 
-
-    public Autor converter(){
-      return new Autor(this.nome,this.email,this.descricao);
+    public String getNome() {
+        return nome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Autor converter() { return new Autor(this.nome, this.email, this.descricao);}
 }

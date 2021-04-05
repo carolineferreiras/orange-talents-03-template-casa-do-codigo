@@ -5,6 +5,7 @@ import br.com.zupacademy.caroline.casadocodigo.DTO.AutorResponseDTO;
 import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
 import br.com.zupacademy.caroline.casadocodigo.Repository.AutorRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class AutorController {
         this.autorRepository = autorRepository;
     }
 
+    @Transactional
     @PostMapping
     public ResponseEntity<AutorResponseDTO> save(@RequestBody @Valid AutorRequestDTO requestDTO ){
         Autor autor = requestDTO.converter();

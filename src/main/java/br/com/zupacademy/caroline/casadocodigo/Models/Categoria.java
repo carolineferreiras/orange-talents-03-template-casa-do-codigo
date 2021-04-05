@@ -1,6 +1,5 @@
 package br.com.zupacademy.caroline.casadocodigo.Models;
 
-import br.com.zupacademy.caroline.casadocodigo.Valid.UniqueValueValid;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -35,5 +34,4 @@ public class Categoria implements Serializable {
     public String getNome() {
         return nome;
     }
-
 }
