@@ -2,8 +2,6 @@ package br.com.zupacademy.caroline.casadocodigo.Models;
 
 
 
-import org.apache.juli.logging.Log;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -20,36 +18,36 @@ public class Livro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
     @Column(unique = true)
     private String titulo;
-    @NotBlank
     @Size(max = 500)
     private String resumo;
     private String sumario;
-    @NotNull
     @Min(20)
     private BigDecimal preco;
     @Min(100)
     private Integer numPaginas;
-    @NotBlank
     @Column(unique = true)
     private String indetificador;
     @Future
-    @NotNull
     private LocalDate dataPublicacao;
-    @NotNull
-    @ManyToOne
-    private Categoria categoria;
-    @NotNull
-    @ManyToOne
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "idAutor")
     private Autor autor;
 
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "idCategoria")
+    private Categoria categoria;
 
+    @Deprecated
     public Livro() {
+
     }
 
-    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, Integer numPaginas, String indetificador, LocalDate dataPublicacao, Long idCategoria, Long idAutor) {
+    public Livro(Long id, String titulo, @Size(max = 500) String resumo, String sumario,
+                 @Min(20) BigDecimal preco, @Min(100) Integer numPaginas, String indetificador,
+                 @Future LocalDate dataPublicacao, Autor autor, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.resumo = resumo;
@@ -58,9 +56,13 @@ public class Livro implements Serializable {
         this.numPaginas = numPaginas;
         this.indetificador = indetificador;
         this.dataPublicacao = dataPublicacao;
-        this.categoria = categoria;
         this.autor = autor;
+        this.categoria = categoria;
     }
+
+    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, Integer numPaginas, String indetificador, LocalDate dataPublicacao, Autor autor, Categoria categoria) {
+    }
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -98,11 +100,27 @@ public class Livro implements Serializable {
         return dataPublicacao;
     }
 
+    public Autor getAutor() {
+        return autor;
+    }
+
     public Categoria getCategoria() {
         return categoria;
     }
 
-    public Autor getAutor() {
-        return autor;
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", resumo='" + resumo + '\'' +
+                ", sumario='" + sumario + '\'' +
+                ", preco=" + preco +
+                ", numPaginas=" + numPaginas +
+                ", indetificador='" + indetificador + '\'' +
+                ", dataPublicacao=" + dataPublicacao +
+                ", autor=" + autor +
+                ", categoria=" + categoria +
+                '}';
     }
 }
