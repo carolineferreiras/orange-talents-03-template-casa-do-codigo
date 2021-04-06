@@ -1,6 +1,7 @@
 package br.com.zupacademy.caroline.casadocodigo.Controller;
 
 
+import br.com.zupacademy.caroline.casadocodigo.DTO.DetalharLivroResponseDTO;
 import br.com.zupacademy.caroline.casadocodigo.DTO.LivroRequestDTO;
 import br.com.zupacademy.caroline.casadocodigo.DTO.LivroResponseDTO;
 import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
@@ -9,6 +10,7 @@ import br.com.zupacademy.caroline.casadocodigo.Models.Livro;
 import br.com.zupacademy.caroline.casadocodigo.Repository.AutorRepository;
 import br.com.zupacademy.caroline.casadocodigo.Repository.CategoriaRepository;
 import br.com.zupacademy.caroline.casadocodigo.Repository.LivroRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -58,4 +61,15 @@ public class LivroController {
                 livroList.stream().map(LivroResponseDTO::new).collect(Collectors.toList()));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> detalhaBusca(@PathVariable Long id) {
+
+        Optional<Livro> livro = livroRepository.findById(id);
+
+        if(livro.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id não existe");
+        }
+
+        return ResponseEntity.ok(new DetalharLivroResponseDTO(livro.get()));
+    }
 }
