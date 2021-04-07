@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
-
 @Entity
 public class Livro implements Serializable {
 
@@ -40,14 +39,12 @@ public class Livro implements Serializable {
     @JoinColumn(name = "idCategoria")
     private Categoria categoria;
 
-    @Deprecated
     public Livro() {
-
     }
 
     public Livro(Long id, String titulo, @Size(max = 500) String resumo, String sumario,
-                 @Min(20) BigDecimal preco, @Min(100) Integer numPaginas, String indetificador,
-                 @Future LocalDate dataPublicacao, Autor autor, Categoria categoria) {
+                 @Min(20) BigDecimal preco, @Min(100) Integer numPaginas,
+                 String indetificador, @Future LocalDate dataPublicacao, Autor autor, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.resumo = resumo;
@@ -58,18 +55,6 @@ public class Livro implements Serializable {
         this.dataPublicacao = dataPublicacao;
         this.autor = autor;
         this.categoria = categoria;
-    }
-
-    public Livro(String titulo, String resumo, String sumario, BigDecimal preco, Integer numPaginas, String indetificador, LocalDate dataPublicacao, Autor autor, Categoria categoria) {
-    }
-
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getTitulo() {
@@ -108,19 +93,7 @@ public class Livro implements Serializable {
         return categoria;
     }
 
-    @Override
-    public String toString() {
-        return "Livro{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", resumo='" + resumo + '\'' +
-                ", sumario='" + sumario + '\'' +
-                ", preco=" + preco +
-                ", numPaginas=" + numPaginas +
-                ", indetificador='" + indetificador + '\'' +
-                ", dataPublicacao=" + dataPublicacao +
-                ", autor=" + autor +
-                ", categoria=" + categoria +
-                '}';
+    public Long getId() {
+        return id;
     }
 }

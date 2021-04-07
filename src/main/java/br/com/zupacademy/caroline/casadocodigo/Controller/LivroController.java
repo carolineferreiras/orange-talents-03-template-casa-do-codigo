@@ -1,9 +1,7 @@
 package br.com.zupacademy.caroline.casadocodigo.Controller;
 
 
-import br.com.zupacademy.caroline.casadocodigo.DTO.DetalharLivroResponseDTO;
-import br.com.zupacademy.caroline.casadocodigo.DTO.LivroRequestDTO;
-import br.com.zupacademy.caroline.casadocodigo.DTO.LivroResponseDTO;
+import br.com.zupacademy.caroline.casadocodigo.DTO.*;
 import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
 import br.com.zupacademy.caroline.casadocodigo.Models.Categoria;
 import br.com.zupacademy.caroline.casadocodigo.Models.Livro;
@@ -30,8 +28,6 @@ public class LivroController {
     private CategoriaRepository categoriaRepository;
     private AutorRepository  autorRepository;
 
-    @PersistenceContext
-    private EntityManager manager;
 
 
     public LivroController(LivroRepository livroRepository, CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
@@ -42,15 +38,17 @@ public class LivroController {
 
     @Transactional
     @PostMapping
-    public ResponseEntity<LivroResponseDTO> save(@Valid @RequestBody LivroRequestDTO requestDTO ){
+    public ResponseEntity<LivroResponseDTO> save(@Valid @RequestBody LivroRequestDTO requestDTO , CategoriaRequestDTO categoriaRequestDTO, AutorRequestDTO autorRequestDTO){
 
-        Autor autor = autorRepository.findById(requestDTO.getId_Autor()).get();
-        Categoria categoria = categoriaRepository.findById(requestDTO.getId_Categoria()).get();
+        Autor autor = autorRepository.findById(categoriaRequestDTO.converter().getId()).get();
+        Categoria categoria = categoriaRepository.findById(autorRequestDTO.converter().getId()).get();
 
-        Livro livro = requestDTO.converter(manager);
+        Livro livro = requestDTO.converter(requestDTO);
 
         return ResponseEntity.ok().body(new LivroResponseDTO(livroRepository.save(livro)));
     }
+
+
 
     @GetMapping
     public ResponseEntity<List<LivroResponseDTO>> listaLivros() {
@@ -60,6 +58,8 @@ public class LivroController {
         return ResponseEntity.ok(
                 livroList.stream().map(LivroResponseDTO::new).collect(Collectors.toList()));
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> detalhaBusca(@PathVariable Long id) {
