@@ -1,7 +1,6 @@
 package br.com.zupacademy.caroline.casadocodigo.DTO;
 
 import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
-import br.com.zupacademy.caroline.casadocodigo.Models.Categoria;
 import br.com.zupacademy.caroline.casadocodigo.Valid.UniqueValueValid;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

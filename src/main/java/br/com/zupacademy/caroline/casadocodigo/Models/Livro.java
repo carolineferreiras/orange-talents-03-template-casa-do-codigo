@@ -42,9 +42,9 @@ public class Livro implements Serializable {
     public Livro() {
     }
 
-    public Livro(Long id, String titulo, @Size(max = 500) String resumo, String sumario,
-                 @Min(20) BigDecimal preco, @Min(100) Integer numPaginas,
-                 String indetificador, @Future LocalDate dataPublicacao, Autor autor, Categoria categoria) {
+    public Livro(Long id, String titulo, String resumo, String sumario, BigDecimal preco, Integer numPaginas,
+                 String indetificador, LocalDate dataPublicacao,
+                 Autor autor, Categoria categoria) {
         this.id = id;
         this.titulo = titulo;
         this.resumo = resumo;
@@ -85,8 +85,8 @@ public class Livro implements Serializable {
         return dataPublicacao;
     }
 
-    public Autor getAutor() {
-        return autor;
+    public Long getAutor() {
+        return getId();
     }
 
     public Categoria getCategoria() {

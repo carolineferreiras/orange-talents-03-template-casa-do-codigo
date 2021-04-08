@@ -3,12 +3,9 @@ package br.com.zupacademy.caroline.casadocodigo.DTO;
 import br.com.zupacademy.caroline.casadocodigo.Models.Estados;
 import br.com.zupacademy.caroline.casadocodigo.Models.Pais;
 
-import javax.validation.constraints.NotEmpty;
-
 
 public class EstadoRequestDTO {
 
-    @NotEmpty
     private String nome;
     private Pais id_pais;
 

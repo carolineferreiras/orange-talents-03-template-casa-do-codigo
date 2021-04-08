@@ -1,6 +1,6 @@
 package br.com.zupacademy.caroline.casadocodigo.DTO;
 
-import br.com.zupacademy.caroline.casadocodigo.Models.Autor;
+
 import br.com.zupacademy.caroline.casadocodigo.Models.Categoria;
 import br.com.zupacademy.caroline.casadocodigo.Models.Livro;
 
@@ -18,10 +18,10 @@ public class DetalharLivroResponseDTO {
     private String indetificador;
     private LocalDate dataPublicacao;
     private Categoria id_Categoria;
-    private Autor id_Autor;
+    private Long id_Autor;
 
 
-    public DetalharLivroResponseDTO(Livro entity , Autor autor, Categoria categoria) {
+    public DetalharLivroResponseDTO(Livro entity ,br.com.zupacademy.caroline.casadocodigo.Models.Autor autor, Categoria categoria) {
         this.titulo = entity.getTitulo();
         this.resumo = entity.getResumo();
         this.sumario = entity.getSumario();
@@ -69,7 +69,7 @@ public class DetalharLivroResponseDTO {
         return id_Categoria;
     }
 
-    public Autor getId_Autor() {
+    public Long getId_Autor() {
         return id_Autor;
     }
 }
